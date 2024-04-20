@@ -6,7 +6,9 @@ import { ref } from "vue";
 import axios from "axios";
 import { cw_endpoint } from "../constant/endpoint";
 import { useCookieStore } from "../stores/cookieStore";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const cookieStore = useCookieStore();
 
 const email = ref("");
@@ -25,6 +27,7 @@ const submitForm = async () => {
       console.log(res.data.token);
       // call the setCookies function from the cookie store
       cookieStore.setCookies(res.data.token);
+      router.push("/");
     }
   } catch (err) {
     console.error("Error submitting form", err, err.message);
