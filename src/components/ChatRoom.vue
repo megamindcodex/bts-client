@@ -13,7 +13,7 @@ const router = useRouter();
 const messages = ref([]);
 const newMessage = ref("");
 const socket = io(socektIo_endpoint);
-const receiverName = ref("codex001");
+const receiverName = ref("");
 const user = ref(null);
 const showMessage = ref(false);
 
