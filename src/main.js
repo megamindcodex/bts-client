@@ -15,10 +15,14 @@ const vuetify = createVuetify({
   directives,
 });
 
+// Import vue-scrollto
+import VueScrollRo from "vue-scrollto";
+
 const app = createApp(App);
 
 app.use(vuetify);
 app.use(createPinia());
 app.use(router);
+app.use(VueScrollRo);
 
 app.mount("#app");

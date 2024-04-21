@@ -1,13 +1,15 @@
 
 <script setup>
-import { onMounted, ref, watch, watchEffect } from "vue";
+import { nextTick, onMounted, ref, watch, watchEffect } from "vue";
 import { io } from "socket.io-client";
 import { useUserStore } from "@/stores/userStore";
 import axios from "axios";
 import { cw_endpoint, socektIo_endpoint } from "@/constant/endpoint";
+import { useRouter } from "vue-router";
 
 const userStore = useUserStore();
 
+const router = useRouter();
 const messages = ref([]);
 const newMessage = ref("");
 const socket = io(socektIo_endpoint);
@@ -15,12 +17,13 @@ const receiverName = ref("codex001");
 const user = ref(null);
 const showMessage = ref(false);
 
-// Create a reactive reference to the last message element
-const lastMessageElement = ref(null);
+const chatPanel = ref(null);
 
 const scrollToLastMessage = () => {
-  if (lastMessageElement.value) {
-    lastMessageElement.value.scrollIntoView({ behavior: "smooth" });
+  if (chatPanel.value) {
+    nextTick(() => {
+      chatPanel.value.scrollTop = chatPanel.value.scrollHeight;
+    });
   }
 };
 
@@ -39,10 +42,11 @@ onMounted(async () => {
   const users = ref(["emmanvictor", "codex001"]);
   const conversation = await userStore.getChats(users.value);
 
-  scrollToLastMessage();
-  messages.value.push(...conversation.messages);
-
-  console.log(conversation.messages);
+  if (conversation) {
+    console.log(conversation.messages);
+    messages.value.push(...conversation.messages);
+    scrollToLastMessage();
+  }
 
   socket.emit("join", userName);
 
@@ -118,18 +122,20 @@ const popUp = () => {
   </div>
   <div class="container">
     <div class="head">
-      <i class="fa-solid fa-chevron-left pa-2" @click="navigateTo"></i>
+      <i class="fa-solid fa-chevron-left pa-2" @click="router.push('/')"></i>
       <div class="dp"></div>
       <span class="text-white">{{ userStore.userName }}</span>
     </div>
-    <!-- <input
+    <v-text-field
       type="text"
+      density="compact"
+      variant="outlined"
+      hide-details
       placeholder="input receiver name"
       v-model="receiverName"
-      class="mt-10"
-    /> -->
-    <div class="chat-panel" v-if="messages">
-      <span></span>
+      class="receiverName"
+    />
+    <div class="chat-panel" ref="chatPanel" v-if="messages">
       <div
         class="msg-block"
         v-for="(message, index) in messages"
@@ -150,7 +156,7 @@ const popUp = () => {
         </div>
       </div>
     </div>
-    <div class="input-area pa-3 pr-0 pl-5 ga-2">
+    <div class="input-area pr-0 pl-5">
       <v-textarea
         placeholder="Type a message...."
         rows="1"
@@ -158,10 +164,10 @@ const popUp = () => {
         auto-grow
         no-resize
         density="compact"
-        class="input"
+        class="input ml-4"
         v-model="newMessage"
       ></v-textarea>
-      <div class="btn">
+      <div class="btn ml-3">
         <button @click="sendMessage">
           <i class="fa-regular fa-paper-plane"></i>
         </button>
@@ -178,20 +184,20 @@ const popUp = () => {
 .container {
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: #dddddd;
 }
 
 .head {
-  position: fixed;
-  top: 0;
   display: flex;
   align-items: center;
   column-gap: 0.8rem;
   width: 100%;
+  height: 10%;
   padding: 1.2rem;
   background-color: #222831;
   /* border-radius: 0px 0px 18px 18px; */
@@ -217,22 +223,19 @@ const popUp = () => {
   flex-direction: column;
   row-gap: 10px;
   width: 100%;
-  height: 100dvh;
+  height: 80%;
   background-color: #dddddd;
   padding: 0.5rem;
-  /* margin-top: 100px; */
-  overflow-x: scroll;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
 }
 
 .input-area {
   display: flex;
-  position: relative;
-  bottom: 0;
-  display: flex;
   width: 100%;
+  height: 10%;
   align-items: center;
-  background-color: #d2d0d0;
-  /* background: blue; */
+  background-color: trsansparent;
 }
 
 .input {
@@ -240,12 +243,12 @@ const popUp = () => {
   border-radius: 30px;
   background-color: #2a3e51;
   color: #fff;
-  /* overflow: auto; */
+  overflow: auto;
 }
 
 .btn {
   display: flex;
-  justify-content: start;
+  /* justify-content: start; */
   align-items: center;
   width: 30%;
   aspect-ratio: 1/1;
@@ -292,6 +295,12 @@ const popUp = () => {
   border-radius: 10px 0px 5px 10px;
 
   background-color: #2f5071;
+}
+
+.receiverName {
+  width: 100%;
+  background-color: #2f5071;
+  color: #fff;
 }
 
 /*.content {
