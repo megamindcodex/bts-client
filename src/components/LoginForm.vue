@@ -28,6 +28,8 @@ const submitForm = async () => {
       // call the setCookies function from the cookie store
       cookieStore.setCookies(res.data.token);
       router.push("/");
+    } else {
+      return "Login Error";
     }
   } catch (err) {
     console.error("Error submitting form", err, err.message);

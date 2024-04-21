@@ -31,6 +31,8 @@ const submitForm = async () => {
       cookieStore.setCookies(res.data.token);
 
       router.push("/");
+    } else {
+      return "Rgisteration Error";
     }
   } catch (err) {
     console.error("Error submitting form", err, err.message);
