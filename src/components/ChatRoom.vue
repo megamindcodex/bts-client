@@ -4,13 +4,13 @@ import { onMounted, ref, watch, watchEffect } from "vue";
 import { io } from "socket.io-client";
 import { useUserStore } from "@/stores/userStore";
 import axios from "axios";
-import { cw_endpoint } from "@/constant/endpoint";
+import { cw_endpoint, socektIo_endpoint } from "@/constant/endpoint";
 
 const userStore = useUserStore();
 
 const messages = ref([]);
 const newMessage = ref("");
-const socket = io("http://localhost:4000");
+const socket = io(socektIo_endpoint);
 const receiverName = ref("codex001");
 const user = ref(null);
 const showMessage = ref(false);
