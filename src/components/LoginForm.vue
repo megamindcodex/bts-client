@@ -14,9 +14,11 @@ const cookieStore = useCookieStore();
 const email = ref("");
 const password = ref("");
 const visible = ref(false);
+const isLoading = ref(false);
 
 const submitForm = async () => {
   try {
+    isLoading.value = true;
     console.log(email.value, password.value);
     const res = await axios.post(`${cw_endpoint}/login`, {
       email: email.value,
@@ -27,6 +29,7 @@ const submitForm = async () => {
       console.log(res.data.token);
       // call the setCookies function from the cookie store
       cookieStore.setCookies(res.data.token);
+      isLoading.value = false;
       router.push("/");
     } else {
       return "Login Error";
@@ -66,7 +69,15 @@ const submitForm = async () => {
         ></i>
       </div>
       <div class="form-group">
-        <button class="pa-3" type="submit">Sign up</button>
+        <button class="pa-3" type="submit">
+          <v-progress-circular
+            v-show="isLoading"
+            color="blue-grey"
+            model-value="100"
+            indeterminate
+          ></v-progress-circular>
+          <span v-show="!isLoading">sign in</span>
+        </button>
       </div>
       <div class="mt-4">
         Don't have an account?

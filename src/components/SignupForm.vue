@@ -9,6 +9,7 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 const cookieStore = useCookieStore();
 const visible = ref(false);
+const isLoading = ref(false);
 
 const name = ref("");
 const userName = ref("");
@@ -17,6 +18,7 @@ const password = ref("");
 
 const submitForm = async () => {
   try {
+    isLoading.value = true;
     console.log(name.value, userName.value, email.value, password.value);
     const res = await axios.post(`${cw_endpoint}/register`, {
       name: name.value,
@@ -29,7 +31,7 @@ const submitForm = async () => {
       // console.log(res.data.token);
       // call the setCookies function from the cookie store
       cookieStore.setCookies(res.data.token);
-
+      isLoading.value = false;
       router.push("/");
     } else {
       return "Rgisteration Error";
@@ -85,7 +87,14 @@ const submitForm = async () => {
         ></i>
       </div>
       <div class="form-group">
-        <button class="pa-3" type="submit">Sign up</button>
+        <button class="pa-3" type="submit">
+          <v-progress-circular
+            v-show="isLoading"
+            size="100"
+            indeterminate
+          ></v-progress-circular>
+          <span v-show="!isLoading">Sign up</span>
+        </button>
       </div>
       <div class="mt-4">
         Already have an account?
