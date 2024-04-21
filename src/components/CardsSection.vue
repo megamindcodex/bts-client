@@ -35,7 +35,8 @@ const membershipCards = ref([
       "20% Discount on Merchandise",
       "Personalized Experiences",
     ],
-    img: "https://img.freepik.com/free-vector/realistic-credit-card-design_23-2149125290.jpg?t=st=1713315313~exp=1713318913~hmac=2492ba6ef774ae2b8626031c9907cd841f14d3f177e93cdf68f84aca41206843&w=996",
+    img: "../assets/images/golden.jpg",
+    // img: "https://img.freepik.com/free-vector/realistic-credit-card-design_23-2149125290.jpg?t=st=1713315313~exp=1713318913~hmac=2492ba6ef774ae2b8626031c9907cd841f14d3f177e93cdf68f84aca41206843&w=996",
     expandPanel: false,
   },
   {
@@ -89,7 +90,7 @@ const goToChatRoom = () => {
 <template>
   <div id="card" class="cards" v-if="membershipCards">
     <v-card class="card pa-2" v-for="card in membershipCards" :key="card.id">
-      <v-img height="200px" :src="card.img" cover> </v-img>
+      <v-img height="200px" :src="card.img"> </v-img>
       <div class="head">
         <v-card-title class="card-type">{{ card.type }}</v-card-title
         ><span class="card-price text-h5">{{ card.price }}</span>

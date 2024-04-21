@@ -67,6 +67,7 @@ export const useUserStore = defineStore("userStore", {
 
     async getChats(users) {
       try {
+        console.log(users);
         const token = await this.getTokenFromCookies(this.cookieName);
 
         if (!token) {
