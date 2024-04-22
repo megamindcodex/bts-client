@@ -27,11 +27,11 @@ const celebName = ref("Halle berry");
         <p class="px-2">
           Here, you'll discover the exclusive privileges and benefits that come
           with each membership tier. Take a closer look at our three distinct
-          cards – Black, Gold, and Platinum – and find the one that best suits
-          your lifestyle and preferences. Whether you're seeking VIP access,
-          personalized experiences, or premium perks, we have the perfect
-          membership card for you. Dive in below to learn more and start your
-          journey with us today!"
+          cards – Sapphire, Gold, and Platinum – and find the one that best
+          suits your lifestyle and preferences. Whether you're seeking VIP
+          access, personalized experiences, or premium perks, we have the
+          perfect membership card for you. Dive in below to learn more and start
+          your journey with us today!"
         </p>
       </v-sheet>
     </div>

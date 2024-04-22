@@ -12,16 +12,12 @@ const isLoggedIn = ref(null);
 const membershipCards = ref([
   {
     id: "001",
-    type: "Black",
+    type: "Sapphire",
     price: "$1000",
     description:
       "Experience the entry-level membership with exclusive benefits tailored for dedicated fans. Unlock VIP access to events, enjoy a 10% discount on merchandise, and gain access to exclusive content.",
-    privileges: [
-      "VIP Access to Events",
-      "10% Discount on Merchandise",
-      "Exclusive Content Access",
-    ],
-    img: "https://img.freepik.com/free-vector/black-credit-card_1017-6276.jpg?t=st=1713315128~exp=1713318728~hmac=92099ddfc6cb15ee39cbd21e7046bd27991b6b9074e90ab1df4daf00f4b08df6&w=740",
+    privileges: ["VIP Access to Events", "Exclusive Content Access"],
+    img: "/images/ultra.jpg",
     expandPanel: false,
   },
   {
@@ -30,13 +26,8 @@ const membershipCards = ref([
     price: "$2000",
     description:
       "Elevate your membership experience with enhanced privileges and personalized perks. Enjoy VIP access to events, a 20% discount on merchandise, and personalized experiences.",
-    privileges: [
-      "VIP Access to Events",
-      "20% Discount on Merchandise",
-      "Personalized Experiences",
-    ],
-    img: "../assets/images/golden.jpg",
-    // img: "https://img.freepik.com/free-vector/realistic-credit-card-design_23-2149125290.jpg?t=st=1713315313~exp=1713318913~hmac=2492ba6ef774ae2b8626031c9907cd841f14d3f177e93cdf68f84aca41206843&w=996",
+    privileges: ["VIP Access to Events", "Personalized Experiences"],
+    img: "/images/golden.jpg",
     expandPanel: false,
   },
   {
@@ -47,11 +38,10 @@ const membershipCards = ref([
       "Indulge in the ultimate membership experience with premium benefits and exclusive perks. Gain VIP access to events, a 30% discount on merchandise, priority services, and access to exclusive merchandise.",
     privileges: [
       "VIP Access to Events",
-      "30% Discount on Merchandise",
       "Priority Services",
       "Exclusive Merchandise",
     ],
-    img: "https://img.freepik.com/premium-photo/silver-credit-card-template-isolated-white-background-3d-illustration_118047-5089.jpg?w=900",
+    img: "/images/platinum.jpg",
     expandPanel: false,
   },
 ]);
@@ -88,9 +78,10 @@ const goToChatRoom = () => {
 </script>
 
 <template>
+  <!-- <img src="../assets/images/golden.jpg" /> -->
   <div id="card" class="cards" v-if="membershipCards">
     <v-card class="card pa-2" v-for="card in membershipCards" :key="card.id">
-      <v-img height="200px" :src="card.img"> </v-img>
+      <v-img :src="card.img" class="image"></v-img>
       <div class="head">
         <v-card-title class="card-type">{{ card.type }}</v-card-title
         ><span class="card-price text-h5">{{ card.price }}</span>
@@ -188,5 +179,11 @@ const goToChatRoom = () => {
 .card-privilege {
   display: flex;
   flex-direction: column;
+}
+
+.image {
+  width: 100%;
+  background: green;
+  height: 6/2;
 }
 </style>
