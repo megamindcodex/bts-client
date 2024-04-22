@@ -28,6 +28,7 @@ export const useUserStore = defineStore("userStore", {
         return foundCookie ? decodeURIComponent(foundCookie.value) : null;
       } catch (err) {
         console.log("Error getting token");
+        return null;
       }
     },
     async getUserData() {
