@@ -39,7 +39,7 @@ onMounted(async () => {
     console.log("user is undifined");
   }
 
-  const users = ref([userName, "codex001"]);
+  const users = ref([userName, receiverName]);
   const conversation = await userStore.getChats(users.value);
 
   if (conversation) {
