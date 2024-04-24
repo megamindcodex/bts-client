@@ -124,7 +124,7 @@ const popUp = () => {
     <div class="head">
       <i class="fa-solid fa-chevron-left pa-2" @click="router.push('/')"></i>
       <div class="dp"></div>
-      <span class="text-white">{{ userStore.userName }}</span>
+      <span class="text-white">{{ receiverName }}</span>
     </div>
     <!-- <v-text-field
       type="text"
