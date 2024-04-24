@@ -13,7 +13,7 @@ const router = useRouter();
 const messages = ref([]);
 const newMessage = ref("");
 const socket = io(socektIo_endpoint);
-const receiverName = ref("");
+const receiverName = ref("admin001");
 const user = ref(null);
 const showMessage = ref(false);
 
@@ -126,7 +126,7 @@ const popUp = () => {
       <div class="dp"></div>
       <span class="text-white">{{ userStore.userName }}</span>
     </div>
-    <v-text-field
+    <!-- <v-text-field
       type="text"
       density="compact"
       variant="outlined"
@@ -134,7 +134,7 @@ const popUp = () => {
       placeholder="input receiver name"
       v-model="receiverName"
       class="receiverName"
-    />
+    /> -->
     <div class="chat-panel" ref="chatPanel" v-if="messages">
       <div
         class="msg-block"
