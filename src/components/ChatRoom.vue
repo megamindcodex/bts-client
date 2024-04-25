@@ -91,6 +91,7 @@ const typingStoped = () => {
   socket.emit("typingStoped", receiverName.value);
 };
 
+let typingTimeout;
 socket.on("isTyping", () => {
   console.log("Typing");
   isTyping.value = true;
