@@ -4,7 +4,7 @@ import { ref } from "vue";
 import Highlight from "@/components/Highlight.vue";
 
 // Purchase Your Exclusive Membership Card Now and Enjoy VIP Privileges!
-const greeting = ref("Elevate your membership experience with Halle Berry");
+const greeting = ref("Elevate your membership experience with Nail Horan");
 </script>
 
 <template>

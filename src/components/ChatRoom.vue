@@ -311,6 +311,7 @@ const popUp = () => {
   padding: 0.5rem;
   border-radius: 0px 10px 10px 5px;
   background-color: #2a3e51;
+  margin-right: 3rem;
 }
 
 .sender_txt {
@@ -322,8 +323,8 @@ const popUp = () => {
 .sender_txt span {
   padding: 0.5rem;
   border-radius: 10px 0px 5px 10px;
-
   background-color: #2f5071;
+  margin-left: 3rem;
 }
 
 .receiverName {

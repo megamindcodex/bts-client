@@ -2,7 +2,7 @@
 <script setup>
 import { ref } from "vue";
 
-const celebName = ref("Halle berry");
+const celebName = ref("Nail Horan");
 </script>
 <template>
   <div class="cont">
@@ -15,9 +15,9 @@ const celebName = ref("Halle berry");
     <div class="high-light">
       <v-sheet class="bottom-border pb-5">
         <p>
-          Embrace Your Status with {{ celebName }} Membership. Unlock exclusive
-          privileges and elevate your experience with VIP access, personalized
-          perks, and more
+          Embrace Your Status with <strong>{{ celebName }}</strong> Membership.
+          Unlock exclusive privileges and elevate your experience with VIP
+          access, personalized perks, and more
         </p>
       </v-sheet>
       <v-sheet class="bottom-border pb-5 mt-10">

@@ -4,6 +4,7 @@ import Logo from "@/components/Logo.vue";
 import { ref } from "vue";
 import { useRoute } from "vue-router";
 const route = useRoute();
+const celebName = ref("Nail Horan");
 
 const currentYear = ref(new Date().getFullYear());
 </script>
@@ -23,7 +24,7 @@ const currentYear = ref(new Date().getFullYear());
       <i class="fa-brands fa-square-instagram mx-3"></i>
     </div>
     <div class="last">
-      <p>&copy; {{ currentYear }} Hally Berry</p>
+      <p>&copy; {{ currentYear }} {{ celebName }}</p>
     </div>
   </div>
 </template>

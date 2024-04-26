@@ -1,8 +1,8 @@
 <script setup>
 import { ref } from "vue";
 
-const celebName1 = ref("Halle");
-const celebName2 = ref("Berry");
+const celebName1 = ref("Nail");
+const celebName2 = ref("Horan");
 </script>
 
 
