@@ -1,5 +1,11 @@
 
 <script setup>
+import { onMounted } from "vue";
+import useUserStore from "../stores/userStore";
+
+const userStore = useUserStore();
+
+onMounted;
 </script>
 
 <template>
