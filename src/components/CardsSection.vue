@@ -13,7 +13,7 @@ const membershipCards = ref([
   {
     id: "001",
     type: "Sapphire",
-    price: "$1000",
+    price: "$800",
     description:
       "Experience the entry-level membership with exclusive benefits tailored for dedicated fans. Unlock VIP access to events, enjoy a 10% discount on merchandise, and gain access to exclusive content.",
     privileges: ["VIP Access to Events", "Exclusive Content Access"],
@@ -21,19 +21,9 @@ const membershipCards = ref([
     expandPanel: false,
   },
   {
-    id: "002",
-    type: "Gold",
-    price: "$2000",
-    description:
-      "Elevate your membership experience with enhanced privileges and personalized perks. Enjoy VIP access to events, a 20% discount on merchandise, and personalized experiences.",
-    privileges: ["VIP Access to Events", "Personalized Experiences"],
-    img: "/images/golden.jpg",
-    expandPanel: false,
-  },
-  {
     id: "003",
     type: "Platinum",
-    price: "$3000",
+    price: "$1500",
     description:
       "Indulge in the ultimate membership experience with premium benefits and exclusive perks. Gain VIP access to events, a 30% discount on merchandise, priority services, and access to exclusive merchandise.",
     privileges: [
@@ -42,6 +32,16 @@ const membershipCards = ref([
       "Exclusive Merchandise",
     ],
     img: "/images/platinum.jpg",
+    expandPanel: false,
+  },
+  {
+    id: "002",
+    type: "Gold",
+    price: "$3000",
+    description:
+      "Elevate your membership experience with enhanced privileges and personalized perks. Enjoy VIP access to events, a 20% discount on merchandise, and personalized experiences.",
+    privileges: ["VIP Access to Events", "Personalized Experiences"],
+    img: "/images/golden.jpg",
     expandPanel: false,
   },
 ]);
