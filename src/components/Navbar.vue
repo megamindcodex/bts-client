@@ -1,11 +1,15 @@
 
 <script setup>
-import { ref, watch } from "vue";
+import { onMounted, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import Logo from "@/components/Logo.vue";
+import ProfileDP from "@/components/ProfileDP.vue";
+import { useUserStore } from "../stores/userStore";
 const route = useRoute();
 const router = useRouter();
 const drawer = ref(false);
+const userStore = useUserStore();
+const token = ref(null);
 
 const navRoutes = ref([
   {
@@ -25,6 +29,13 @@ const navRoutes = ref([
     url: "login",
   },
 ]);
+
+onMounted(async () => {
+  const cookieName = "token";
+  const result = await userStore.getTokenFromCookies(cookieName);
+  token.value = result;
+  console.log(result);
+});
 
 const navigateTo = (routeName) => {
   console.log(routeName);
@@ -68,14 +79,23 @@ watch(
       temporary
       class="nan-cont"
     >
-      <div class="nav pt-8" v-if="navRoutes">
+      <ProfileDP />
+      <div class="nav pt-2" v-if="navRoutes">
         <span
           :class="{ active: activeRoute(nav.url) }"
           class="nav-item pa-1"
           v-for="nav in navRoutes"
           :key="nav.name"
           @click="navigateTo(nav.url)"
-          >{{ nav.name }}
+        >
+          <span v-if="token">
+            <span v-show="nav.name !== 'Login' && nav.name !== 'Signup'">{{
+              nav.name
+            }}</span>
+          </span>
+          <span v-else>
+            <span>{{ nav.name }}</span>
+          </span>
         </span>
       </div>
     </v-navigation-drawer>

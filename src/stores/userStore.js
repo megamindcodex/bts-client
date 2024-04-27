@@ -60,6 +60,7 @@ export const useUserStore = defineStore("userStore", {
           this.userName = res.data.userName;
           console.log("user fetched");
           // console.log(res.data);
+          return res.data;
         }
       } catch (err) {
         console.error("Error getting user data", err, err.message);
