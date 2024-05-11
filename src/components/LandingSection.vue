@@ -4,15 +4,22 @@ import { ref } from "vue";
 import Highlight from "@/components/Highlight.vue";
 
 // Purchase Your Exclusive Membership Card Now and Enjoy VIP Privileges!
-const greeting = ref("Elevate your membership experience with Nail Horan");
+const experience = ref("nce");
+const with_dua = ref("with Dua");
 </script>
 
 <template>
   <div class="cont mt-8">
     <div class="greeting">
-      <span>
-        {{ greeting }}
-      </span>
+      <div class="bg-sec">
+        <p>
+          Elevate your membership experie<span class="text-red-accent-4 pr-3">
+            {{ experience }}
+          </span>
+          <span class="text-red-accent-4">{{ with_dua }}</span>
+          Lipa
+        </p>
+      </div>
     </div>
     <Highlight />
   </div>
@@ -25,14 +32,37 @@ const greeting = ref("Elevate your membership experience with Nail Horan");
 }
 .greeting {
   display: flex;
+  flex-direction: column;
   width: 100%;
-  padding: 1rem;
+  /* padding: 1rem; */
 }
 
-.greeting span {
+.greeting p {
   font-family: "Saira Condensed", sans-serif;
   font-size: 8vw;
   color: #000;
   text-align: center;
 }
+
+.bg-sec {
+  display: flex;
+  width: 100%;
+  height: 300px;
+  background-color: gray;
+  background-image: url("/public//images/dualipa-image.jpg");
+  background-size: cover;
+  padding: 1rem;
+}
+
+.bg-sec p {
+  position: relative;
+  height: fit-content;
+  color: mintcream;
+}
+/* .image {
+  width: 100%;
+  height: 200px;
+  background: green;
+  height: 2/2;
+} */
 </style>

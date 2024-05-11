@@ -9,7 +9,7 @@ const route = useRoute();
 const router = useRouter();
 const drawer = ref(false);
 const userStore = useUserStore();
-const token = ref(null);
+const isLoggedIn = ref(null);
 
 const navRoutes = ref([
   {
@@ -46,6 +46,15 @@ const currentRoute = ref(null);
 const activeRoute = (routeName) => {
   if (currentRoute.value === routeName) return currentRoute;
 };
+
+// Watch for changes in userStore.isLoggedIn and update isLoggedIn accordingly
+watch(
+  () => userStore.isLoggedIn,
+  (newValue) => {
+    isLoggedIn.value = newValue;
+    console.log(isLoggedIn.value);
+  }
+);
 
 watch(
   () => route.name,
@@ -88,7 +97,7 @@ watch(
           :key="nav.name"
           @click="navigateTo(nav.url)"
         >
-          <span v-if="token">
+          <span v-if="isLoggedIn">
             <span v-show="nav.name !== 'Login' && nav.name !== 'Signup'">{{
               nav.name
             }}</span>

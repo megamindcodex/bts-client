@@ -13,21 +13,26 @@ const membershipCards = ref([
   {
     id: "001",
     type: "Sapphire",
-    price: "$800",
+    price: "$300",
     description:
       "Experience the entry-level membership with exclusive benefits tailored for dedicated fans. Unlock VIP access to events, enjoy a 10% discount on merchandise, and gain access to exclusive content.",
-    privileges: ["VIP Access to Events", "Exclusive Content Access"],
+    privileges: [
+      "VIP Access to Events",
+      "Meet and Greet",
+      "Exclusive Content Access",
+    ],
     img: "/images/ultra.jpg",
     expandPanel: false,
   },
   {
     id: "003",
     type: "Platinum",
-    price: "$1500",
+    price: "$1000",
     description:
       "Indulge in the ultimate membership experience with premium benefits and exclusive perks. Gain VIP access to events, a 30% discount on merchandise, priority services, and access to exclusive merchandise.",
     privileges: [
       "VIP Access to Events",
+      "Meet and Greet",
       "Priority Services",
       "Exclusive Merchandise",
     ],
@@ -37,10 +42,15 @@ const membershipCards = ref([
   {
     id: "002",
     type: "Gold",
-    price: "$3000",
+    price: "$2000",
     description:
       "Elevate your membership experience with enhanced privileges and personalized perks. Enjoy VIP access to events, a 20% discount on merchandise, and personalized experiences.",
-    privileges: ["VIP Access to Events", "Personalized Experiences"],
+    privileges: [
+      "VIP Access to Events",
+      "Meet and Greet",
+      "Personalized Experiences",
+      "Monthly Luxury Access",
+    ],
     img: "/images/golden.jpg",
     expandPanel: false,
   },

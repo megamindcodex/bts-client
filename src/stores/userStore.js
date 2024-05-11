@@ -24,6 +24,12 @@ export const useUserStore = defineStore("userStore", {
           (cookie) => cookie.name === cookieName
         );
 
+        if (foundCookie) {
+          this.isLoggedIn === true;
+        } else {
+          this.isLoggedIn = false;
+        }
+
         // If the cookie is found with the specified name
         return foundCookie ? decodeURIComponent(foundCookie.value) : null;
       } catch (err) {
