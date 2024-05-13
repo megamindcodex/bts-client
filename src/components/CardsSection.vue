@@ -13,7 +13,7 @@ const membershipCards = ref([
   {
     id: "001",
     type: "Sapphire",
-    price: "$300",
+    price: "$500",
     description:
       "Experience the entry-level membership with exclusive benefits tailored for dedicated fans. Unlock VIP access to events, enjoy a 10% discount on merchandise, and gain access to exclusive content.",
     privileges: [
