@@ -1,56 +1,90 @@
 
 <script setup>
-import { ref } from "vue";
+import { reactive, ref } from "vue";
 import axios from "axios";
-import { cw_endpoint } from "../constant/endpoint";
 import { useCookieStore } from "../stores/cookieStore";
 import { useRouter } from "vue-router";
+import { useVuelidate } from "@vuelidate/core";
+import { required, email } from "@vuelidate/validators";
+import { cw_endpoint } from "../constant/endpoint";
 
 const router = useRouter();
 const cookieStore = useCookieStore();
 const visible = ref(false);
 const isLoading = ref(false);
+const serverErr = ref();
+const formData = reactive({
+  name: "",
+  userName: "",
+  email: "",
+  password: "",
+});
 
-const name = ref("");
-const userName = ref("");
-const email = ref("");
-const password = ref("");
+const rules = {
+  name: { required },
+  email: { required, email },
+  userName: { required },
+  password: { required },
+};
 
+const v$ = useVuelidate(rules, formData);
 const submitForm = async () => {
+  const formValid = await v$.value.$validate();
+
+  if (!formValid) return console.log("Form is not valid!");
+
+  registerUser();
+};
+
+const registerUser = async () => {
   try {
     isLoading.value = true;
-    console.log(name.value, userName.value, email.value, password.value);
+    // console.log(
+    //   formData.name,
+    //   formData.userName,
+    //   formData.email,
+    //   formData.password
+    // );
     const res = await axios.post(`${cw_endpoint}/register`, {
-      name: name.value,
-      userName: userName.value,
-      email: email.value,
-      password: password.value,
+      name: formData.name,
+      userName: formData.userName,
+      email: formData.email,
+      password: formData.password,
     });
 
     if (res.status === 201) {
       // console.log(res.data.token);
       // call the setCookies function from the cookie store
       cookieStore.setCookies(res.data.token);
-      isLoading.value = false;
       router.push("/");
-    } else {
-      return "Rgisteration Error";
     }
   } catch (err) {
+    serverErr.value = err.response.data.errors;
+    console.log(serverErr.value);
     console.error("Error submitting form", err, err.message);
+  } finally {
+    isLoading.value = false;
   }
 };
 </script>
 
 <template>
   <div class="container mt-10">
-    <v-form @submit.prevent="submitForm" class="px-3">
+    <v-form @submit.prevent="submitForm" class="px-3 d-flex flex-column ga-2">
+      <div v-if="serverErr" class="text-red serverErr">
+        <span v-for="err in serverErr" :key="err">
+          {{ err }}
+        </span>
+      </div>
       <div class="form-group">
         <v-text-field
           type="text"
           placeholder="Name"
           variant="outlined"
-          v-model="name"
+          v-model="formData.name"
+          @input="v$.name.$touch"
+          @blur="v$.name.$touch"
+          :error-messages="v$.name.$errors.map((e) => e.$message)"
         />
       </div>
       <div class="form-group">
@@ -58,7 +92,10 @@ const submitForm = async () => {
           type="text"
           placeholder="userName"
           variant="outlined"
-          v-model="userName"
+          v-model="formData.userName"
+          @input="v$.userName.$touch"
+          @blur="v$.userName.$touch"
+          :error-messages="v$.userName.$errors.map((e) => e.$message)"
         />
       </div>
       <div class="form-group">
@@ -66,7 +103,10 @@ const submitForm = async () => {
           type="email"
           variant="outlined"
           placeholder="email"
-          v-model="email"
+          v-model="formData.email"
+          @input="v$.email.$touch"
+          @blur="v$.email.$touch"
+          :error-messages="v$.email.$errors.map((e) => e.$message)"
         />
       </div>
       <div class="form-group pass-input">
@@ -74,7 +114,10 @@ const submitForm = async () => {
           :type="visible ? 'text' : 'password'"
           variant="outlined"
           placeholder="password"
-          v-model="password"
+          v-model="formData.password"
+          @input="v$.password.$touch"
+          @blur="v$.password.$touch"
+          :error-messages="v$.password.$errors.map((e) => e.$message)"
         />
 
         <i
@@ -90,7 +133,8 @@ const submitForm = async () => {
         <button class="pa-3" type="submit">
           <v-progress-circular
             v-show="isLoading"
-            size="100"
+            color="blue-grey"
+            model-value="100"
             indeterminate
           ></v-progress-circular>
           <span v-show="!isLoading">Sign up</span>
@@ -128,5 +172,13 @@ const submitForm = async () => {
   color: #fff;
   font-size: 18px;
   border-radius: 3px;
+}
+
+.serverErr {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 17px;
 }
 </style>

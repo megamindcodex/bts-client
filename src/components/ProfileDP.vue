@@ -7,17 +7,19 @@ const userStore = useUserStore();
 const user = ref(null);
 
 onMounted(async () => {
-  const result = await userStore.getUserData();
-  if (result) {
-    user.value = result;
-  }
+  await userStore.getUserData();
+  // if (result) {
+  //   user.value = result;
+  // }
 });
 </script>
 
 <template>
   <div class="cont pa-2">
     <div class="dp"><i class="bx bx-user-circle"></i></div>
-    <div class="userName" v-if="user">{{ user.userName }}</div>
+    <div class="userName" v-if="userStore.user">
+      {{ userStore.user.userName }}
+    </div>
   </div>
 </template>
 

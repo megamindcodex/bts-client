@@ -10,6 +10,7 @@ const router = useRouter();
 const drawer = ref(false);
 const userStore = useUserStore();
 const isLoggedIn = ref(null);
+const currentRoute = ref(null);
 
 const navRoutes = ref([
   {
@@ -32,9 +33,10 @@ const navRoutes = ref([
 
 onMounted(async () => {
   const cookieName = "token";
-  const result = await userStore.getTokenFromCookies(cookieName);
-  token.value = result;
-  console.log(result);
+  const token = await userStore.getTokenFromCookies(cookieName);
+
+  if (token) {
+  }
 });
 
 const navigateTo = (routeName) => {
@@ -42,7 +44,6 @@ const navigateTo = (routeName) => {
   router.push({ name: routeName });
 };
 
-const currentRoute = ref(null);
 const activeRoute = (routeName) => {
   if (currentRoute.value === routeName) return currentRoute;
 };

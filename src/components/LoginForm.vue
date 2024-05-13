@@ -2,53 +2,81 @@
 <style scoped>
 </style>
 <script setup>
-import { ref } from "vue";
+import { reactive, ref } from "vue";
 import axios from "axios";
-import { cw_endpoint } from "../constant/endpoint";
 import { useCookieStore } from "../stores/cookieStore";
 import { useRouter } from "vue-router";
+import { useVuelidate } from "@vuelidate/core";
+import { required, email } from "@vuelidate/validators";
+import { cw_endpoint } from "../constant/endpoint";
 
 const router = useRouter();
 const cookieStore = useCookieStore();
+const serverErr = ref();
 
-const email = ref("");
-const password = ref("");
+const formData = reactive({
+  email: "",
+  password: "",
+});
 const visible = ref(false);
 const isLoading = ref(false);
 
+const rules = {
+  email: { required, email },
+  password: { required },
+};
+
+const v$ = useVuelidate(rules, formData);
 const submitForm = async () => {
+  const formValid = await v$.value.$validate();
+
+  if (!formValid) return console.log("Form is not valid!");
+
+  loginUser();
+};
+
+const loginUser = async () => {
   try {
     isLoading.value = true;
-    console.log(email.value, password.value);
+    console.log(formData.email, formData.password);
     const res = await axios.post(`${cw_endpoint}/login`, {
-      email: email.value,
-      password: password.value,
+      email: formData.email,
+      password: formData.password,
     });
 
     if (res.status === 200) {
-      console.log(res.data.token);
+      // console.log(res.data.token);
       // call the setCookies function from the cookie store
       cookieStore.setCookies(res.data.token);
-      isLoading.value = false;
       router.push("/");
-    } else {
-      return "Login Error";
     }
   } catch (err) {
+    serverErr.value = err.response.data.error;
+    console.log(serverErr.value);
     console.error("Error submitting form", err, err.message);
+  } finally {
+    isLoading.value = false;
   }
 };
 </script>
 
 <template>
   <div class="container mt-10">
-    <v-form @submit.prevent="submitForm" class="px-3">
+    <v-form @submit.prevent="submitForm" class="px-3 d-flex flex-column ga-2">
+      <div v-if="serverErr" class="text-red serverErr">
+        <span>
+          {{ serverErr }}
+        </span>
+      </div>
       <div class="form-group">
         <v-text-field
           type="email"
           variant="outlined"
           placeholder="email"
-          v-model="email"
+          v-model="formData.email"
+          @input="v$.email.$touch"
+          @blur="v$.email.$touch"
+          :error-messages="v$.email.$errors.map((e) => e.$message)"
         />
       </div>
       <div class="form-group pass-input">
@@ -56,7 +84,10 @@ const submitForm = async () => {
           :type="visible ? 'text' : 'password'"
           variant="outlined"
           placeholder="password"
-          v-model="password"
+          v-model="formData.password"
+          @input="v$.password.$touch"
+          @blur="v$.password.$touch"
+          :error-messages="v$.password.$errors.map((e) => e.$message)"
         />
 
         <i
@@ -111,5 +142,11 @@ const submitForm = async () => {
   color: #fff;
   font-size: 18px;
   border-radius: 3px;
+}
+
+.serverErr {
+  display: flex;
+  justify-content: center;
+  font-size: 17px;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="mt-8">Get Started</h1>
+    <h1 class="mt-5">Get Started</h1>
     <span>Create your Account</span>
     <SignupForm />
   </div>

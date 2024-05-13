@@ -171,7 +171,7 @@ const popUp = () => {
       v-model="receiverName"
       class="receiverName"
     /> -->
-    <div class="chat-panel" ref="chatPanel" v-if="messages">
+    <div class="chat-panel" ref="chatPanel" v-if="messages.length > 0">
       <div
         class="msg-block"
         v-for="(message, index) in messages"
@@ -192,8 +192,18 @@ const popUp = () => {
         </div>
       </div>
     </div>
-    <div class="chat-panel" v-if="noConvo">
-      <span class="no-chat-txt">No chats available!</span>
+    <div class="chat-panel" v-else>
+      <div class="no-chat-txt d-flex flex-column mt-10">
+        <!-- <span class="text-h5">Welcom {{ user.userName }}</span> -->
+        <span class="text-h6 font-weight-bold"
+          >start a chat with our customer service to purchase a card of your
+          choice.</span
+        >
+        <span class="text-h6 font-weight-medium"
+          >and yes fell free to ask any question concerning purchaseing a
+          membership card</span
+        >
+      </div>
     </div>
     <div v-show="isLoading" class="chat-panel isLoading">
       <span class="loading-txt">Loading chats....</span>
@@ -374,7 +384,7 @@ const popUp = () => {
   text-align: center;
 }
 
-/*.content {
+/* .content {
   background-color: green;
   width: max-content;
   padding: 0.3rem;
