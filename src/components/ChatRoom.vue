@@ -171,7 +171,7 @@ const popUp = () => {
       v-model="receiverName"
       class="receiverName"
     /> -->
-    <div class="chat-panel" ref="chatPanel" v-if="messages.length > 0">
+    <div class="chat-panel" ref="chatPanel" v-if="messages">
       <div
         class="msg-block"
         v-for="(message, index) in messages"
