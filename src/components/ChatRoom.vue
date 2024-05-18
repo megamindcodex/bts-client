@@ -55,7 +55,7 @@ onMounted(async () => {
   user.value = userStore.user;
   const userName = user.value.userName;
 
-  console.log(user.value.userName);
+  // console.log(user.value.userName);
   if (!user.value) {
     console.log("user is undifined");
   }

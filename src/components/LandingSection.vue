@@ -49,7 +49,7 @@ const with_dua = ref("with Dua");
   width: 100%;
   height: 300px;
   background-color: gray;
-  background-image: url("/public//images/dualipa-image.jpg");
+  background-image: url("/images/dualipa-image.jpg");
   background-size: cover;
   padding: 1rem;
 }
