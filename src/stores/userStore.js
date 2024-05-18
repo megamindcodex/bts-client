@@ -52,6 +52,7 @@ export const useUserStore = defineStore("userStore", {
           console.error("token is undefined");
           return null;
         }
+        this.token = token;
         // Include the token in the Authorization header
         const config = {
           headers: {

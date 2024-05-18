@@ -74,7 +74,8 @@ onMounted(async () => {
     isLoading.value = false;
   }
 
-  socket.emit("join", userName);
+  socket.emit("join", userName, receiverName.value, userStore.token);
+  console.log(userStore.token);
 
   socket.on("message", (message) => {
     // console.log(message)
@@ -83,10 +84,6 @@ onMounted(async () => {
     scrollToLastMessage();
   });
 });
-
-if (route.params.name === receiverName) {
-  change_hasRead_to_true(receiverName.value, userStore.userId);
-}
 
 watch(messages, () => {
   scrollToLastMessage();
@@ -107,6 +104,8 @@ const sendMessage = () => {
     messages.value.push(message);
     noConvo.value = false;
     scrollToLastMessage();
+    const condition = ref(false);
+    toggle_hasRead(receiverName.value, condition.value);
     socket.emit("message", receiverName.value, message);
     // console.log(`${receiverName.value}: ${message}`);
     newMessage.value = "";
@@ -145,10 +144,10 @@ socket.on("typingStoped", () => {
 
 const saveMessageToDatabase = async (receiver, message, timeStamp) => {
   try {
-    console.log(receiver, message, timeStamp);
+    // console.log(receiver, message, timeStamp);
     const cookieName = "token";
     const token = await userStore.getTokenFromCookies(cookieName);
-    console.log(token);
+    // console.log(token);
 
     const config = {
       headers: {
@@ -162,7 +161,6 @@ const saveMessageToDatabase = async (receiver, message, timeStamp) => {
     );
 
     if (res.status === 200) {
-      popUp();
     }
   } catch (err) {
     console.error("Error saving message to database:", err);
@@ -170,15 +168,15 @@ const saveMessageToDatabase = async (receiver, message, timeStamp) => {
   }
 };
 
-const popUp = () => {
-  setTimeout(() => {
-    showMessage.value = true;
-  }, 3000);
-};
+// const popUp = () => {
+//   setTimeout(() => {
+//     showMessage.value = true;
+//   }, 3000);
+// };
 
-const change_hasRead_to_true = async (receiverName) => {
+const toggle_hasRead = async (receiverName, condition) => {
   try {
-    // console.log(receiverName, userId)
+    // console.log(receiverName, condition);
     const cookieName = ref("token");
     const token = await userStore.getTokenFromCookies(cookieName.value);
 
@@ -195,13 +193,13 @@ const change_hasRead_to_true = async (receiverName) => {
     console.log(config);
 
     const res = await axios.put(
-      `${cw_endpoint}/change_hasRead_to_true`,
-      { receiverName },
+      `${cw_endpoint}/toggle_hasRead`,
+      { receiverName, condition },
       config
     );
     if (res.status === 200) {
       hasRead.value = res.data.hasRead;
-      console.log(res.data.hasRead);
+      console.log(`${receiverName} has read is ${hasRead.value}`);
     }
   } catch (err) {
     console.error("Error changing hasRead to true:", err, err.message);

@@ -34,9 +34,6 @@ const navRoutes = ref([
 onMounted(async () => {
   const cookieName = "token";
   const token = await userStore.getTokenFromCookies(cookieName);
-
-  if (token) {
-  }
 });
 
 const navigateTo = (routeName) => {
@@ -83,6 +80,7 @@ watch(
         d="M3.75 6.75h16.5M3.75 12H12m-8.25 5.25h16.5"
       />
     </svg>
+    <!-- <v-badge inline color="green-accent-4" class="msg_badge"></v-badge> -->
     <v-navigation-drawer
       v-model="drawer"
       location="right"
@@ -99,9 +97,17 @@ watch(
           @click="navigateTo(nav.url)"
         >
           <span v-if="isLoggedIn">
-            <span v-show="nav.name !== 'Login' && nav.name !== 'Signup'">{{
-              nav.name
-            }}</span>
+            <span
+              v-show="nav.name !== 'Login' && nav.name !== 'Signup'"
+              class="position-relative"
+            >
+              <!-- <v-badge
+                v-show="nav.name === 'Chat'"
+                inline
+                color="green-accent-4"
+                class="position-absolute ml-10"></v-badge> -->
+              {{ nav.name }}</span
+            >
           </span>
           <span v-else>
             <span>{{ nav.name }}</span>
@@ -154,5 +160,11 @@ watch(
 .logo-link {
   text-decoration: none;
   color: #000;
+}
+
+.msg_badge {
+  position: absolute;
+  top: 0.3rem;
+  right: 0;
 }
 </style>
