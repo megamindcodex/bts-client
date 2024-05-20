@@ -46,6 +46,7 @@ const with_dua = ref("Adele");
 
 .bg-sec {
   display: flex;
+  justify-content: center;
   width: 100%;
   height: 300px;
   background-color: gray;
