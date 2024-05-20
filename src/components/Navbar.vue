@@ -1,6 +1,6 @@
 
 <script setup>
-import { onMounted, ref, watch } from "vue";
+import { onMounted, ref, watch, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import Logo from "@/components/Logo.vue";
 import ProfileDP from "@/components/ProfileDP.vue";
@@ -31,9 +31,18 @@ const navRoutes = ref([
   },
 ]);
 
+const newMessage = ref(false);
 onMounted(async () => {
   const cookieName = "token";
   const token = await userStore.getTokenFromCookies(cookieName);
+
+  watch(
+    () => userStore.newMessage,
+    (newValue) => {
+      newMessage.value = newValue;
+      console.log(newMessage.value);
+    }
+  );
 });
 
 const navigateTo = (routeName) => {
@@ -50,7 +59,7 @@ watch(
   () => userStore.isLoggedIn,
   (newValue) => {
     isLoggedIn.value = newValue;
-    console.log(isLoggedIn.value);
+    // console.log(isLoggedIn.value);
   }
 );
 
@@ -80,7 +89,15 @@ watch(
         d="M3.75 6.75h16.5M3.75 12H12m-8.25 5.25h16.5"
       />
     </svg>
-    <!-- <v-badge inline color="green-accent-4" class="msg_badge"></v-badge> -->
+    <v-badge
+      v-show="newMessage"
+      inline
+      color="success text-grey-lighten-3"
+      class="msg_badge"
+      content="New"
+      @click.stop="drawer = !drawer"
+    >
+    </v-badge>
     <v-navigation-drawer
       v-model="drawer"
       location="right"
@@ -101,11 +118,14 @@ watch(
               v-show="nav.name !== 'Login' && nav.name !== 'Signup'"
               class="position-relative"
             >
-              <!-- <v-badge
-                v-show="nav.name === 'Chat'"
+              <v-badge
+                v-show="nav.name === 'Chat' && userStore.newMessage"
                 inline
-                color="green-accent-4"
-                class="position-absolute ml-10"></v-badge> -->
+                color="success pa-2"
+                class="position-absolute ml-10"
+                content="New"
+              >
+              </v-badge>
               {{ nav.name }}</span
             >
           </span>

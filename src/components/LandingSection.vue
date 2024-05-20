@@ -5,7 +5,7 @@ import Highlight from "@/components/Highlight.vue";
 
 // Purchase Your Exclusive Membership Card Now and Enjoy VIP Privileges!
 const experience = ref("nce");
-const with_dua = ref("with Dua");
+const with_dua = ref("Adele");
 </script>
 
 <template>
@@ -13,11 +13,11 @@ const with_dua = ref("with Dua");
     <div class="greeting">
       <div class="bg-sec">
         <p>
-          Elevate your membership experie<span class="text-red-accent-4 pr-3">
+          Elevate your membership experie<span class="pr-3">
             {{ experience }}
           </span>
           <span class="text-red-accent-4">{{ with_dua }}</span>
-          Lipa
+          Laurie
         </p>
       </div>
     </div>
@@ -49,7 +49,7 @@ const with_dua = ref("with Dua");
   width: 100%;
   height: 300px;
   background-color: gray;
-  background-image: url("/images/dualipa-image.jpg");
+  background-image: url("/images/adele-image.jpg");
   background-size: cover;
   padding: 1rem;
 }

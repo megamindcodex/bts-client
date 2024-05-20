@@ -2,7 +2,7 @@
 <script setup>
 import { ref } from "vue";
 
-const celebName = ref("Dua Lipa");
+const celebName = ref("Adele Laurie");
 </script>
 <template>
   <div class="cont">

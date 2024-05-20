@@ -13,7 +13,7 @@ const router = useRouter();
 const route = useRoute();
 const messages = ref([]);
 const newMessage = ref("");
-const socket = io(socektIo_endpoint);
+const socket = userStore.socket;
 const receiverName = ref("Administrator");
 const user = ref(null);
 const showMessage = ref(false);
@@ -60,6 +60,8 @@ onMounted(async () => {
     console.log("user is undifined");
   }
 
+  // await userStore.connect_user_to_socket();
+
   const users = ref([userName, receiverName.value]);
   const conversation = await userStore.getChats(users.value);
 
@@ -104,8 +106,8 @@ const sendMessage = () => {
     messages.value.push(message);
     noConvo.value = false;
     scrollToLastMessage();
-    const condition = ref(false);
-    toggle_hasRead(receiverName.value, condition.value);
+    // const condition = ref(false);
+    // toggle_hasRead(receiverName.value, condition.value);
     socket.emit("message", receiverName.value, message);
     // console.log(`${receiverName.value}: ${message}`);
     newMessage.value = "";
