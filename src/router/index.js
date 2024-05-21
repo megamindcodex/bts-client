@@ -49,7 +49,7 @@ router.beforeEach(async (to, from, next) => {
   // const previous_route = ref(from.params.name)
 
   if (to.name === "chatRoom") {
-    const userName = userStore.userName;
+    const receiverName = userStore.receiverName;
     const condition = true;
     console.log(`Previous route: ${to.name}. condition: ${condition}`);
 
@@ -65,7 +65,7 @@ router.beforeEach(async (to, from, next) => {
 
     const res = await axios.put(
       `${cw_endpoint}/toggle_hasRead`,
-      { receiverName: userName, condition },
+      { receiverName, condition },
       config
     );
 
@@ -75,7 +75,7 @@ router.beforeEach(async (to, from, next) => {
   }
 
   if (from.name === "chatRoom") {
-    const userName = userStore.userName;
+    const receiverName = userStore.receiverName;
     const condition = true;
     console.log(`Previous route: ${from.name}. condition: ${condition}`);
 
@@ -91,7 +91,7 @@ router.beforeEach(async (to, from, next) => {
 
     const res = await axios.put(
       `${cw_endpoint}/toggle_hasRead`,
-      { receiverName: userName, condition },
+      { receiverName, condition },
       config
     );
 
