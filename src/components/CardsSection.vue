@@ -42,7 +42,7 @@ const membershipCards = ref([
   {
     id: "002",
     type: "Gold",
-    price: "$2500",
+    price: "$2,500",
     description:
       "Elevate your membership experience with enhanced privileges and personalized perks. Enjoy VIP access to events, a 20% discount on merchandise, and personalized experiences.",
     privileges: [
