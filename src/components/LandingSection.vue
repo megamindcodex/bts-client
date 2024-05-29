@@ -19,7 +19,6 @@ const with_dua = ref("Berry");
           </span>
 
           <span class="text-red-accent-4">{{ with_dua }}</span>
-          Laurie
         </p>
       </div>
     </div>
