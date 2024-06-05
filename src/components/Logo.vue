@@ -1,14 +1,14 @@
 <script setup>
 import { ref } from "vue";
 
-const celebName1 = ref("Halle");
-const celebName2 = ref("Berry");
+const celebName1 = ref("Bangtan");
+const celebName2 = ref("BTS");
 </script>
 
 
 <template>
   <div class="logo ga-2">
-    <span>{{ celebName1 }}</span>
+    <!-- <span>{{ celebName1 }}</span> -->
     <span>{{ celebName2 }}</span>
   </div>
 </template>
@@ -24,6 +24,6 @@ const celebName2 = ref("Berry");
 }
 
 .logo > :last-child {
-  color: red;
+  color: #e80f88;
 }
 </style>

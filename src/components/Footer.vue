@@ -4,7 +4,7 @@ import Logo from "@/components/Logo.vue";
 import { ref } from "vue";
 import { useRoute } from "vue-router";
 const route = useRoute();
-const celebName = ref("Halle Berry");
+const celebName = ref("BTS HIT MUSIC");
 
 const currentYear = ref(new Date().getFullYear());
 </script>
@@ -24,7 +24,9 @@ const currentYear = ref(new Date().getFullYear());
       <i class="fa-brands fa-square-instagram mx-3"></i>
     </div>
     <div class="last">
-      <p>&copy; {{ currentYear }} {{ celebName }}</p>
+      <p>COPYRIGHT &copy; {{ currentYear }}</p>
+      <p class="name">{{ celebName }}</p>
+      <p>/ HYBE. ALL RIGHTS RESERVED</p>
     </div>
   </div>
 </template>
@@ -69,13 +71,20 @@ const currentYear = ref(new Date().getFullYear());
 }
 
 .last {
+  display: flex;
+  font-size: 13px;
+  gap: 5px;
   width: 100%;
   text-align: center;
 }
 
 .last p {
-  color: #000;
-  font-size: 17px;
+  white-space: nowrap;
+}
+
+.last .name {
+  color: #e80f88;
+  font-weight: bold;
 }
 
 .logo-link {
